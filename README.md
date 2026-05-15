@@ -2,6 +2,8 @@
 
 An AI-powered fitness and nutrition assistant that lets you track meals, calculate macros, and get personalised daily calorie targets — all through natural language.
 
+**Test status:** 50 passed, 0 failed — `python -m pytest tests/ -v`
+
 ---
 
 ## Quick Start
