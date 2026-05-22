@@ -7,6 +7,8 @@ import json
 import pytest
 from unittest.mock import MagicMock, patch
 
+import agent.fitness_agent as _af_module
+
 
 def _make_text_response(text: str):
     """Build a mock Claude response that ends with a text block."""
@@ -34,10 +36,9 @@ def _make_tool_use_response(tool_name: str, tool_id: str, inputs: dict):
 
 @pytest.fixture
 def agent(tmp_path):
-    with patch("agent.fitness_agent.ANTHROPIC_API_KEY", "test-key"):
-        with patch("agent.fitness_agent.anthropic.Anthropic") as MockClient:
-            from agent.fitness_agent import FitnessAgent
-            instance = FitnessAgent(db_path=str(tmp_path / "test.db"))
+    with patch.object(_af_module, "ANTHROPIC_API_KEY", "test-key"):
+        with patch.object(_af_module.anthropic, "Anthropic") as MockClient:
+            instance = _af_module.FitnessAgent(db_path=str(tmp_path / "test.db"))
             instance._client = MockClient.return_value
             yield instance
 
